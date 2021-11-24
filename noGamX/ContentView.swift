@@ -85,6 +85,7 @@ class GameScene: SKScene {
 // A sample SwiftUI creating a GameScene and sizing it
 // at 300x400 points
 struct ContentView: View {
+    @State var myScene = 1
     
     var scene: SKScene {
         let scene = GameScene()
@@ -93,18 +94,30 @@ struct ContentView: View {
         return scene
     }
 
+    var sencetwo: SKScene {
+        let sencetwo = GameScene()
+        sencetwo.size = CGSize(width: 300, height: 400)
+        sencetwo.scaleMode = .resizeFill
+        return sencetwo
+    }
+    
     var body: some View {
         VStack {
             GeometryReader { geo in
-                SpriteView(scene: scene)
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .ignoresSafeArea()
+                if myScene == 1 {
+                    SpriteView(scene: scene)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .ignoresSafeArea()
+                } else if myScene == 2 {
+                    SpriteView(scene: sencetwo)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .ignoresSafeArea()
+                }
             }
-           
-            Button("Clean", action: clean).edgesIgnoringSafeArea(.bottom)
+            Button("Next Screen", action: clean).edgesIgnoringSafeArea(.bottom)
         }
     }
     func clean() {
-        
+        myScene += 1
     }
 }
